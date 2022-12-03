@@ -1,0 +1,53 @@
+<html>
+
+<head>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+textarea{
+  height:95%;
+}
+#left-side, #right-side {
+  height:100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+body {
+  display:flex;
+  flex-direction: row;
+  height: 100%;
+  width:100%;
+}
+#graph-output-img {
+  max-height:100%;
+  align-self:center;
+  justify-self: center;
+}
+</style>
+</head>
+
+<body>
+  <div id="left-side">
+    <textarea id="the-text-box">digraph G {
+}</textarea>
+    <button id="update-graph-btn">Update Graph</button>
+  </div>
+  <div id="right-side">
+    <img src="lastGenerated.png" id="graph-output-img"/>
+  </div>
+  <script>
+    let textArea = document.getElementById('the-text-box')
+    let graphBtn = document.getElementById('update-graph-btn')
+    let outputImg= document.getElementById('graph-output-img')
+
+    graphBtn.addEventListener('click', () => {
+      axios.post('/updateGraph', {data: textArea.value}).then(()=>{
+        outputImg.src="lastGenerated.png?"+Math.random()
+      })
+    })
+    
+  </script>
+</body>
+
+
+</html>

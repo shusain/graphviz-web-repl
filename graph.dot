@@ -1,0 +1,6 @@
+digraph G {
+sense1 -> broker
+sense2 -> broker
+broker -> actuator
+testing
+}
