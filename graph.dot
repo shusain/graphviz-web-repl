@@ -1,6 +1,43 @@
 digraph G {
-sense1 -> broker
-sense2 -> broker
-broker -> actuator
-testing
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif", shape="rect"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+
+        task1_init [label="initialize sensor"]
+        task1_read [label="read value"]
+        task1_store [label="store value"] 
+        
+        task2_connect [label="establish connection"]
+        task2_get_pending [label="check for any pending messages from broker"]
+        task2_b_telemetry [label="broadcast telemetry data"]
+        task2_b_temp [label="broadcast temp value"]
+
+        subgraph cluster_2 {
+	  label = "Edge Communication"
+
+          subgraph cluster_0 {
+		style=filled;
+		color=lightblue;
+		node [style=filled,color=white];
+		task1_init -> task1_read -> task1_store;
+		label = "reading temp sensor\n(task 2)";
+	  }
+
+	  subgraph cluster_1 {
+		node [style=filled];
+		task2_connect -> task2_get_pending -> task2_b_telemetry -> task2_b_temp -> task2_get_pending;
+		label = "broadcast values\nto the cloud\n(task 1)";
+		style=filled
+                color=lightgreen
+	  }
+        }
+
+
+	start -> task1_init;
+	start -> task2_connect;
+	task1_store -> task2_b_temp;
+	task2_b_temp -> end;
+
+	start [shape=Mcircle];
+	end [shape=Mdiamond];
 }

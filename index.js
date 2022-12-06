@@ -5,10 +5,15 @@ const app = express()
 const port = 3000
 
 app.use(express.json())
+
 app.get('/lastGenerated.png', (req, res) => {
   //fs.writeFileSync("graph.dot", req.body)
   execSync("dot graph.dot -T png -o out.png")
   res.sendFile("out.png", {root: __dirname})
+})
+
+app.get('/lastDotData', (req, res) => {
+  res.sendFile("graph.dot", {root: __dirname})
 })
 
 app.post('/updateGraph', (req, res) => {

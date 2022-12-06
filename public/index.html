@@ -20,6 +20,7 @@ body {
 }
 #graph-output-img {
   max-height:100%;
+  max-width:100%;
   align-self:center;
   justify-self: center;
 }
@@ -39,11 +40,21 @@ body {
     let textArea = document.getElementById('the-text-box')
     let graphBtn = document.getElementById('update-graph-btn')
     let outputImg= document.getElementById('graph-output-img')
+    textArea.addEventListener('keyup', (evt) => {
+      //if(evt.keyCode==13)
+        updateSavedGraphData()
+    })
 
-    graphBtn.addEventListener('click', () => {
+    function updateSavedGraphData() {
       axios.post('/updateGraph', {data: textArea.value}).then(()=>{
         outputImg.src="lastGenerated.png?"+Math.random()
       })
+    }
+
+    graphBtn.addEventListener('click', updateSavedGraphData) 
+
+    axios.get('/lastDotData').then((res)=>{
+      textArea.value = res.data
     })
     
   </script>
