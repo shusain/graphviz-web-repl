@@ -12,9 +12,12 @@ textarea{
   display: flex;
   flex-direction: column;
 }
+.row {
+  flex-direction:row;
+}
 body {
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100%;
   width:100%;
 }
@@ -28,6 +31,23 @@ body {
 </head>
 
 <body>
+  <div>
+    <h2>What/Why/How</h2>
+    <ul>
+      <li>What: Home garden automation</li>
+      <li>Why: Save time and get better veggies from home garden.</li>
+      <li>How: Sensor based control of valve for watering plants, web based monitoring of data collected over time from moisture sensor as well as temp and barometric pressure</li>
+    </ul>
+    <h2>Telemetry:</h2>
+    <blockquote>measurement data</blockquote>
+    <ul>
+      <li>soil moisture (capacitive sensor, relative %)</li>
+      <li>temperature (degrees C)</li>
+      <li>barometric pressure (atm/mmhg)</li>
+      <li>photo-resistor (light level)</li>
+    <ul>
+  </div>
+  <div class="row">
   <div id="left-side">
     <textarea id="the-text-box">digraph G {
 }</textarea>
@@ -35,6 +55,7 @@ body {
   </div>
   <div id="right-side">
     <img src="lastGenerated.png" id="graph-output-img"/>
+  </div>
   </div>
   <script>
     let textArea = document.getElementById('the-text-box')
